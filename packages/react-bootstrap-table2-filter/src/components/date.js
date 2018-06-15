@@ -36,7 +36,7 @@ class DateFilter extends Component {
     const comparator = this.dateFilterComparator.value;
     const date = this.inputDate.value;
     if (comparator && date) {
-      this.applyFilter(date, comparator);
+      this.applyFilter(date, comparator, true);
     }
 
     // export onFilter function to allow users to access
@@ -92,14 +92,14 @@ class DateFilter extends Component {
     return defaultDate;
   }
 
-  applyFilter(value, comparator) {
+  applyFilter(value, comparator, isInitialize = false) {
     if (!comparator || !value) {
       return;
     }
     const { column, onFilter, delay } = this.props;
     const execute = () => {
       const date = typeof value !== 'object' ? new Date(value) : value;
-      onFilter(column, FILTER_TYPE.DATE)({ date, comparator });
+      onFilter(column, FILTER_TYPE.DATE, isInitialize)({ date, comparator });
     };
     if (delay) {
       this.timeout = setTimeout(() => { execute(); }, delay);
