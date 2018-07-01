@@ -72,6 +72,7 @@ class BootstrapTable extends PropsBaseResolver(Component) {
     });
 
     const tableCaption = (caption && <Caption>{ caption }</Caption>);
+    const expandRow = this.resolveExpandRowProps();
 
     return (
       <div className={ tableWrapperClass }>
@@ -85,6 +86,7 @@ class BootstrapTable extends PropsBaseResolver(Component) {
             onFilter={ this.props.onFilter }
             onExternalFilter={ this.props.onExternalFilter }
             selectRow={ headerCellSelectionInfo }
+            expandRow={ expandRow }
           />
           <Body
             data={ data }
@@ -96,7 +98,7 @@ class BootstrapTable extends PropsBaseResolver(Component) {
             cellEdit={ this.props.cellEdit || {} }
             selectRow={ cellSelectionInfo }
             selectedRowKeys={ selected }
-            expandRow={ this.resolveExpandRowProps() }
+            expandRow={ expandRow }
             rowStyle={ rowStyle }
             rowClasses={ rowClasses }
             rowEvents={ rowEvents }
@@ -150,9 +152,12 @@ BootstrapTable.propTypes = {
     expanded: PropTypes.array,
     nonExpandable: PropTypes.array,
     showExpandColumn: PropTypes.bool,
-    expandColumnRenderer: PropTypes.func
+    expandColumnRenderer: PropTypes.func,
+    expandHeaderColumnRenderer: PropTypes.func
   }),
   onRowExpand: PropTypes.func,
+  onAllRowExpand: PropTypes.func,
+  isAnyExpands: PropTypes.func,
   rowStyle: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
   rowEvents: PropTypes.object,
   rowClasses: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
